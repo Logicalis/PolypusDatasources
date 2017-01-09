@@ -1,0 +1,11 @@
+{
+  "name": "datasource-api",
+  "version": "0.1.0",
+  "description": "A queries and datasources repository to use as API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bruno Orlandi <brorlandi@gmail.com>",
+  "license": "ISC"
+}
