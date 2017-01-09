@@ -2,10 +2,21 @@
   "name": "datasource-api",
   "version": "0.1.0",
   "description": "A queries and datasources repository to use as API",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "keywords": [],
+  "author": "Bruno Orlandi",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "restify": "^4.0.2",
+    "swagger-restify-mw": "^0.1.0"
   },
-  "author": "Bruno Orlandi <brorlandi@gmail.com>",
-  "license": "ISC"
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "swagger project test"
+  }
 }
