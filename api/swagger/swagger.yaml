@@ -1,16 +1,16 @@
 swagger: "2.0"
 info:
-  version: "0.0.1"
-  title: Hello World App
+  version: "0.1.0"
+  title: DataSourceAPI
 # during dev, should point to your local machine
-host: localhost:10010
+host: localhost:8080
 # basePath prefixes all resource paths 
-basePath: /
+basePath: /api
 # 
 schemes:
   # tip: remove http to make production-grade
   - http
-  - https
+  # - https
 # format of bodies a client can send (Content-Type)
 consumes:
   - application/json
@@ -31,30 +31,89 @@ paths:
           description: The name of the person to whom to say hello
           required: false
           type: string
+          minLength: 3
       responses:
         "200":
           description: Success
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
         # responses may fall through to errors
         default:
           description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
+    
+    
+  /datasources:
+    # x-swagger-router-controller: datasources
+    get:
+      description: Return all `DataSource`
+      # operationId: getAll
+      responses:
+        200: 
+          description: Success
+          schema: 
+            $ref: "#/definitions/DataSource"
+    post:
+      description: Create new entity
+      parameters:
+        - name: DataSource
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/DataSource"
+          
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/DataSource"
+  
+  /datasources/count:
+    get:
+      description: Count how many entities are in db.
+      responses: 
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/CountSchema"
+            
+  /datasources/{_id}:
+    get:
+      description: Get one entity
+      parameters:
+        - name: _id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/DataSource"
+      
+
+x-swagger-mongoose:
+  schema-options:
+    timestamps: true
+    
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
+  CountSchema:
     properties:
-      message:
+      count:
+        type: integer
+        
+  DataSource:
+    required:
+      - name
+      - adapter
+    properties:
+      name:
         type: string
-  ErrorResponse:
-    required:
-      - message
-    properties:
-      message:
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      adapter:
         type: string

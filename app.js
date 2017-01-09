@@ -2,23 +2,62 @@
 
 var SwaggerRestify = require('swagger-restify-mw');
 var restify = require('restify');
-var app = restify.createServer();
+var server = restify.createServer();
 
-module.exports = app; // for testing
+var yaml = require('yamljs');
+var swaggerMongoose = require('swagger-mongoose');
+
+server.use(restify.acceptParser(server.acceptable));
+server.use(restify.queryParser());
+server.use(restify.bodyParser());
+server.use(restify.CORS());
+
+function corsHandler(req, res, next) {
+
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
+res.setHeader('Access-Control-Allow-Methods', '*');
+
+return next();
+}
+
+// Fix Swagger OPTIONS request
+server.opts(/\.*/,corsHandler,function(req,res,next){
+  res.send(200);
+  return next();
+});
+
+const erm = require('express-restify-mongoose');
+
+module.exports = server; // for testing
+
+const mongoose = require("mongoose");
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://10.55.71.203/datasourceapi');
 
 var config = {
   appRoot: __dirname // required config
 };
 
+var swaggerDoc = JSON.stringify(yaml.load('./api/swagger/swagger.yaml'));
+
+var DataSource = swaggerMongoose.compile(swaggerDoc).models.DataSource;
+const uri = erm.serve(server, DataSource,{
+  prefix: "api",
+  name: "datasources",
+  version: "",
+  restify: true
+});
+
 SwaggerRestify.create(config, function(err, swaggerRestify) {
   if (err) { throw err; }
 
-  swaggerRestify.register(app);
+  swaggerRestify.register(server);
 
-  var port = process.env.PORT || 10010;
-  app.listen(port);
+  var port = process.env.PORT || 8080;
+  server.listen(port,()=>{
+    console.log("Listening on:",port);
+  });
 
-  if (swaggerRestify.runner.swagger.paths['/hello']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
-  }
 });
