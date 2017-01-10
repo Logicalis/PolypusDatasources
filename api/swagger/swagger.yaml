@@ -47,6 +47,14 @@ paths:
     get:
       description: Return all `DataSource`
       # operationId: getAll
+      parameters:
+        - name: sort
+          in: query
+          description: | 
+            Sort entities by an attribute.
+            Example: sort=name, sort=-name, sort={"name":-1}
+          required: false
+          type: string
       responses:
         200: 
           description: Success
@@ -60,12 +68,17 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/DataSource"
-          
       responses:
         201:
           description: Success
           schema:
             $ref: "#/definitions/DataSource"
+    # delete:
+    #   description: Delete all entities
+    #   responses:
+    #     200:
+    #       description: OK
+    
   
   /datasources/count:
     get:
@@ -80,15 +93,49 @@ paths:
     get:
       description: Get one entity
       parameters:
-        - name: _id
-          in: path
-          required: true
-          type: string
+        - $ref: "#/parameters/idParam"
       responses:
         200:
           description: Success
           schema:
             $ref: "#/definitions/DataSource"
+    delete:
+      parameters:
+        - $ref: "#/parameters/idParam"
+      description: Delete one entity.
+      responses:
+        200:
+          description: OK
+    put:
+      description: Update an entity
+      parameters:
+        - name: DataSource
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/DataSource"
+        - $ref: "#/parameters/idParam"
+      responses:
+        200:
+          description: OK
+    # POST identical to PUT
+    # post:
+    #   description: Update an entity
+    #   parameters:
+    #     - name: DataSource
+    #       in: body
+    #       required: true
+    #       schema:
+    #         $ref: "#/definitions/DataSource"
+    #     - $ref: "#/parameters/idParam"
+    #   responses:
+    #     200:
+    #       description: OK
+    
+    
+    
+    
+    
       
 
 x-swagger-mongoose:
@@ -117,3 +164,10 @@ definitions:
         format: date-time
       adapter:
         type: string
+
+parameters:
+  idParam:
+    name: _id
+    in: path
+    required: true
+    type: string
