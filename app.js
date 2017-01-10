@@ -16,7 +16,7 @@ function corsHandler(req, res, next) {
 
 res.setHeader('Access-Control-Allow-Origin', '*');
 res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
-res.setHeader('Access-Control-Allow-Methods', '*');
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD');
 
 return next();
 }
@@ -47,7 +47,13 @@ const uri = erm.serve(server, DataSource,{
   prefix: "api",
   name: "datasources",
   version: "",
-  restify: true
+  restify: true,
+  findOneAndRemove: false,
+  preDelete: (req, res, next)=>{
+    if(!req.erm.document)
+      return res.send(403,{});
+    return next();
+  }
 });
 
 SwaggerRestify.create(config, function(err, swaggerRestify) {
