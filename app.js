@@ -1,11 +1,12 @@
 'use strict';
-
+require('rootpath')();
 var SwaggerRestify = require('swagger-restify-mw');
 var restify = require('restify');
 var server = restify.createServer();
 
 var yaml = require('yamljs');
 var swaggerMongoose = require('swagger-mongoose');
+var logger = require('logger');
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
@@ -36,10 +37,6 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://10.55.71.203/datasourceapi');
 
-var config = {
-  appRoot: __dirname // required config
-};
-
 var swaggerDoc = JSON.stringify(yaml.load('./api/swagger/swagger.yaml'));
 
 var DataSource = swaggerMongoose.compile(swaggerDoc).models.DataSource;
@@ -56,6 +53,9 @@ const uri = erm.serve(server, DataSource,{
   }
 });
 
+var config = {
+  appRoot: __dirname // required config
+};
 SwaggerRestify.create(config, function(err, swaggerRestify) {
   if (err) { throw err; }
 
