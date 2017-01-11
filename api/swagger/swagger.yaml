@@ -18,28 +18,31 @@ consumes:
 produces:
   - application/json
 paths:
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
-      parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
-          minLength: 3
-      responses:
-        "200":
-          description: Success
-        # responses may fall through to errors
-        default:
-          description: Error
   /swagger:
     x-swagger-pipe: swagger_raw
+    
+  /adapters:
+    x-swagger-router-controller: adapters
+    get:
+      description: Return a list of Adapters available.
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Adapter"
+  
+  /adapters/reload:
+    x-swagger-router-controller: adapters
+    post:
+      description: Request adapters to be reloaded. Needed if a new adapter is installed.
+      operationId: reloadAdapters
+      parameters:
+        - $ref: "#/parameters/emptyParam"
+      responses:
+        200:
+          description: OK
+    
+        
     
     
   /datasources:
@@ -48,13 +51,12 @@ paths:
       description: Return all `DataSource`
       # operationId: getAll
       parameters:
-        - name: sort
-          in: query
-          description: | 
-            Sort entities by an attribute.
-            Example: sort=name, sort=-name, sort={"name":-1}
-          required: false
-          type: string
+        - $ref: "#/parameters/sortParam"
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+        - $ref: "#/parameters/queryParam"
+        - $ref: "#/parameters/selectParam"
+        - $ref: "#/parameters/distinctParam"
       responses:
         200: 
           description: Success
@@ -73,11 +75,6 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/DataSource"
-    # delete:
-    #   description: Delete all entities
-    #   responses:
-    #     200:
-    #       description: OK
     
   
   /datasources/count:
@@ -134,9 +131,6 @@ paths:
     
     
     
-    
-    
-      
 
 x-swagger-mongoose:
   schema-options:
@@ -145,6 +139,8 @@ x-swagger-mongoose:
 # complex objects have schema definitions
 definitions:
   CountSchema:
+    x-swagger-mongoose:
+      exclude-schema: true
     properties:
       count:
         type: integer
@@ -164,6 +160,20 @@ definitions:
         format: date-time
       adapter:
         type: string
+      adapterProperties:
+        type: object
+        x-swagger-mongoose:
+          exclude-schema: true
+  
+  Adapter:
+    properties:
+      name:
+        type: string
+      properties:
+        type: object
+        x-swagger-mongoose:
+          exclude-schema: true
+        
 
 parameters:
   idParam:
@@ -171,3 +181,68 @@ parameters:
     in: path
     required: true
     type: string
+    
+  sortParam:
+    name: sort
+    in: query
+    description: | 
+      Sort entities by an attribute.
+      Example: sort=name, sort=-name, sort={"name":-1}
+    required: false
+    type: string
+    
+  skipParam:
+    name: skip
+    in: query
+    description: | 
+      Number of entities to be skipped, like an offset.
+      Example: skip=10
+    required: false
+    type: integer
+    
+  limitParam:
+    name: limit
+    in: query
+    description: | 
+      Limit number of entities returned
+      Example: limit=10
+    required: false
+    type: integer
+    
+  queryParam:
+    name: query
+    in: query
+    description: | 
+      A MongoDB query.
+      Example: query={"age":"<=12"}
+    required: false
+    type: string
+  
+  selectParam:
+    name: select
+    in: query
+    description: | 
+      Select attributes to be show or hidden
+      Example: select=name,createdAt
+    required: false
+    type: string
+  
+  distinctParam:
+    name: distinct
+    in: query
+    description: | 
+      Attribute to be distinct
+      Example: distinct=name
+    required: false
+    type: string
+  
+  emptyParam:
+    name: empty
+    in: body
+    required: false
+    schema:
+      type: object
+      
+      
+  
+    
