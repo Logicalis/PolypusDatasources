@@ -41,15 +41,10 @@ paths:
       responses:
         200:
           description: OK
-    
-        
-    
-    
+  
   /datasources:
-    # x-swagger-router-controller: datasources
     get:
       description: Return all `DataSource`
-      # operationId: getAll
       parameters:
         - $ref: "#/parameters/sortParam"
         - $ref: "#/parameters/skipParam"
@@ -103,7 +98,7 @@ paths:
       responses:
         200:
           description: OK
-    put:
+    patch:
       description: Update an entity
       parameters:
         - name: DataSource
@@ -128,6 +123,76 @@ paths:
     #   responses:
     #     200:
     #       description: OK
+    
+  /queries:
+    get:
+      description: Return all `Query`
+      parameters:
+        - $ref: "#/parameters/sortParam"
+        - $ref: "#/parameters/skipParam"
+        - $ref: "#/parameters/limitParam"
+        - $ref: "#/parameters/queryParam"
+        - $ref: "#/parameters/selectParam"
+        - $ref: "#/parameters/distinctParam"
+      responses:
+        200: 
+          description: Success
+          schema: 
+            $ref: "#/definitions/Query"
+    post:
+      description: Create new entity
+      parameters:
+        - name: Query
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Query"
+      responses:
+        201:
+          description: Success
+          schema:
+            $ref: "#/definitions/Query"
+
+    
+  
+  /queries/count:
+    get:
+      description: Count how many entities are in db.
+      responses: 
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/CountSchema"
+            
+  /queries/{_id}:
+    get:
+      description: Get one entity
+      parameters:
+        - $ref: "#/parameters/idParam"
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Query"
+    delete:
+      parameters:
+        - $ref: "#/parameters/idParam"
+      description: Delete one entity.
+      responses:
+        200:
+          description: OK
+    patch:
+      description: Update an entity
+      parameters:
+        - name: Query
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Query"
+        - $ref: "#/parameters/idParam"
+      responses:
+        200:
+          description: OK
 
     
 # complex objects have schema definitions
@@ -136,6 +201,13 @@ definitions:
     properties:
       count:
         type: integer
+
+  Adapter:
+    properties:
+      name:
+        type: string
+      properties:
+        type: object
         
   DataSource:
     required:
@@ -154,13 +226,26 @@ definitions:
         type: string
       adapterProperties:
         type: object
-
-  Adapter:
+        
+  Query:
+    required:
+      - name
     properties:
       name:
         type: string
-      properties:
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      dataSource:
+        description: DataSource id
+        type: string
+      adapterProperties:
         type: object
+        
+      
 
 parameters:
   idParam:
