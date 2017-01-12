@@ -1,6 +1,7 @@
 'use strict';
 
 var adapterManager = require('lib/adapterManager');
+const _ = require('lodash');
 
 function get(req, res) {
   var list = [];

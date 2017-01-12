@@ -27,10 +27,16 @@ module.exports = {
     displayName: "Dummy Adapter",
     name: "dummyAdapter",
     adapterProperties: new Schema({
-        dummyProperty: Number
+        dummyProperty: {
+            type: Number,
+            required: [true, "You must have the dummy property, it's just dummy. Why not?"]
+        }
     }),
     queryProperties: new Schema({
-        message: String
+        message: {
+            type: String,
+            required: [true, "Put some message in the query please. I'm a dummy adapter"]
+        }
     }),
     execute: execute,
     configure: configure

@@ -128,19 +128,11 @@ paths:
     #   responses:
     #     200:
     #       description: OK
-    
-    
-    
 
-x-swagger-mongoose:
-  schema-options:
-    timestamps: true
     
 # complex objects have schema definitions
 definitions:
   CountSchema:
-    x-swagger-mongoose:
-      exclude-schema: true
     properties:
       count:
         type: integer
@@ -162,18 +154,13 @@ definitions:
         type: string
       adapterProperties:
         type: object
-        x-swagger-mongoose:
-          exclude-schema: true
-  
+
   Adapter:
     properties:
       name:
         type: string
       properties:
         type: object
-        x-swagger-mongoose:
-          exclude-schema: true
-        
 
 parameters:
   idParam:
