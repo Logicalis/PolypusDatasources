@@ -193,6 +193,39 @@ paths:
       responses:
         200:
           description: OK
+          
+  /queries/{_id}/execute:
+    post:
+      description: Execute a query and return the data.
+      parameters:
+        - $ref: "#/parameters/idParam"
+        - name: parameters
+          description: |
+            Parameters to replace in query.
+            Example: {"param1" : 123, "param2" : "all", ...}
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        200:
+          description: Result of the query
+          
+  /datasources/{_id}/execute:
+    post:
+      description: Execute a query on a dataSource. The body contains the adapterProperties necessary for the adapter.
+      parameters:
+        - $ref: "#/parameters/idParam"
+        - name: adapterProperties
+          description: Query adapter properties. It will depends on the DataSource Adapter.
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        200:
+          description: Result of the query
+      
 
     
 # complex objects have schema definitions
@@ -216,12 +249,6 @@ definitions:
     properties:
       name:
         type: string
-      createdAt:
-        type: string
-        format: date-time
-      updatedAt:
-        type: string
-        format: date-time
       adapter:
         type: string
       adapterProperties:
@@ -230,15 +257,10 @@ definitions:
   Query:
     required:
       - name
+      - dataSource
     properties:
       name:
         type: string
-      createdAt:
-        type: string
-        format: date-time
-      updatedAt:
-        type: string
-        format: date-time
       dataSource:
         description: DataSource id
         type: string
@@ -314,7 +336,6 @@ parameters:
     required: false
     schema:
       type: object
-      
       
   
     
