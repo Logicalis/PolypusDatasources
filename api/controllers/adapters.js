@@ -5,7 +5,7 @@ const _ = require('lodash');
 
 function get(req, res) {
   var list = [];
-  _.forEach(adapterManager.adapters, function(adapter){
+  _.forEach(adapterManager.getAdapters(), function(adapter){
     var adapterJson = Object.assign({},adapter);
     adapterJson.adapterProperties = adapterJson.adapterProperties.paths;
     delete adapterJson.adapterProperties._id;

@@ -24,6 +24,7 @@ function execute(configuration, queryProperties){
 
 
 module.exports = {
+    disabled: false,
     displayName: "Dummy Adapter",
     name: "dummyAdapter",
     adapterProperties: new Schema({
