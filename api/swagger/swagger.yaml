@@ -58,7 +58,7 @@ paths:
           schema: 
             $ref: "#/definitions/DataSource"
     post:
-      description: Create new entity
+      description: Create new DataSource and configures it.
       parameters:
         - name: DataSource
           in: body
@@ -80,6 +80,13 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/CountSchema"
+  
+  /datasources/status:
+    get:
+      description: Give status of the DataSources like connection errors.
+      responses:
+        200:
+          description: Success
             
   /datasources/{_id}:
     get:
@@ -195,8 +202,10 @@ paths:
           description: OK
           
   /queries/{_id}/execute:
+    x-swagger-router-controller: executor
     post:
       description: Execute a query and return the data.
+      operationId: executeQuery
       parameters:
         - $ref: "#/parameters/idParam"
         - name: parameters
@@ -212,8 +221,10 @@ paths:
           description: Result of the query
           
   /datasources/{_id}/execute:
+    x-swagger-router-controller: executor
     post:
       description: Execute a query on a dataSource. The body contains the adapterProperties necessary for the adapter.
+      operationId: executeDataSource
       parameters:
         - $ref: "#/parameters/idParam"
         - name: adapterProperties

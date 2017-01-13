@@ -37,8 +37,8 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://10.55.71.203/datasourceapi');
 
-require('lib/datasources')(server);
-require('lib/queries')(server);
+require('lib/datasourceService')(server);
+require('lib/queriesService')(server);
 
 var config = {
   appRoot: __dirname // required config

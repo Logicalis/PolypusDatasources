@@ -10,16 +10,16 @@ function configure(dataSource){
         dataSource: dataSource
     }
 
-    return configuration;
+    return Promise.resolve(configuration);
 }
 
 
 function execute(configuration, queryProperties){
     console.log("Execute query on dataSource:",configuration.dataSource.displayName);
-    return {
+    return Promise.resolve({
         message: queryProperties.message,
         dummy: configuration.dummy
-    }
+    });
 }
 
 
