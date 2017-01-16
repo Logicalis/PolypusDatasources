@@ -29,7 +29,9 @@ paths:
         200:
           description: OK
           schema:
-            $ref: "#/definitions/Adapter"
+            type: array
+            items:
+              $ref: "#/definitions/Adapter"
   
   /adapters/reload:
     x-swagger-router-controller: adapters
@@ -56,7 +58,9 @@ paths:
         200: 
           description: Success
           schema: 
-            $ref: "#/definitions/DataSource"
+            type: array
+            items:
+              $ref: "#/definitions/DataSource"
     post:
       description: Create new DataSource and configures it.
       parameters:
@@ -81,12 +85,18 @@ paths:
           schema:
             $ref: "#/definitions/CountSchema"
   
-  /datasources/status:
+  /datasources_status/:
+    x-swagger-router-controller: executor
     get:
+      operationId: getAllStatus
       description: Give status of the DataSources like connection errors.
       responses:
         200:
           description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Status"
             
   /datasources/{_id}:
     get:
@@ -130,6 +140,36 @@ paths:
     #   responses:
     #     200:
     #       description: OK
+          
+  /datasources/{_id}/execute:
+    x-swagger-router-controller: executor
+    post:
+      description: Execute a query on a dataSource. The body contains the adapterProperties necessary for the adapter.
+      operationId: executeDataSource
+      parameters:
+        - $ref: "#/parameters/idParam"
+        - name: adapterProperties
+          description: Query adapter properties. It will depends on the DataSource Adapter.
+          in: body
+          required: false
+          schema:
+            type: object
+      responses:
+        200:
+          description: Result of the query
+          
+  /datasources/{_id}/status:
+    x-swagger-router-controller: executor
+    get:
+      description: Get a datasource configuration status
+      operationId: getStatus
+      parameters:
+        - $ref: "#/parameters/idParam"
+      responses:
+        200:
+          description: Status of the datasource
+          schema:
+            $ref: "#/definitions/Status"
     
   /queries:
     get:
@@ -145,7 +185,9 @@ paths:
         200: 
           description: Success
           schema: 
-            $ref: "#/definitions/Query"
+            type: array
+            items:
+              $ref: "#/definitions/Query"
     post:
       description: Create new entity
       parameters:
@@ -219,23 +261,6 @@ paths:
       responses:
         200:
           description: Result of the query
-          
-  /datasources/{_id}/execute:
-    x-swagger-router-controller: executor
-    post:
-      description: Execute a query on a dataSource. The body contains the adapterProperties necessary for the adapter.
-      operationId: executeDataSource
-      parameters:
-        - $ref: "#/parameters/idParam"
-        - name: adapterProperties
-          description: Query adapter properties. It will depends on the DataSource Adapter.
-          in: body
-          required: false
-          schema:
-            type: object
-      responses:
-        200:
-          description: Result of the query
       
 
     
@@ -276,6 +301,16 @@ definitions:
         description: DataSource id
         type: string
       adapterProperties:
+        type: object
+        
+  Status:
+    properties:
+      ok:
+        type: boolean
+      date:
+        type: string
+        format: date-time
+      error:
         type: object
         
       

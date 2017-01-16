@@ -4,6 +4,10 @@ const Schema = require('mongoose').Schema;
 
 function configure(dataSource){
 
+    if(dataSource.adapterProperties.dummyProperty < 15){ // just to test errors
+        return Promise.reject(new Error("Dummy property must be >= 15"));
+    }
+
     var configuration = {
         configuredAt: new Date(),
         dummy: dataSource.adapterProperties.dummyProperty,
