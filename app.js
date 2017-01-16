@@ -9,7 +9,7 @@ var SwaggerRestify = require('swagger-restify-mw');
 var restify = require('restify');
 var server = restify.createServer();
 
-var logger = require('lib/logger');
+var logger = require('lib/utils/logger');
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
