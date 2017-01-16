@@ -7,8 +7,8 @@ function get(req, res) {
   var list = [];
   _.forEach(adapterManager.getAdapters(), function(adapter){
     var adapterJson = Object.assign({},adapter);
-    adapterJson.adapterProperties = adapterJson.adapterProperties.paths;
-    delete adapterJson.adapterProperties._id;
+    adapterJson.datasourceProperties = adapterJson.datasourceProperties.paths;
+    delete adapterJson.datasourceProperties._id;
     adapterJson.queryProperties = adapterJson.queryProperties.paths;
     delete adapterJson.queryProperties._id;
     list.push(adapterJson);

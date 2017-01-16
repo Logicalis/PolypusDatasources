@@ -8,7 +8,7 @@ const AdapterManager = require('lib/adapterManager');
 function executeDataSource(req, res, next) {
     var id = req.swagger.params._id.value;
     var bodyParams = req.swagger.params.bodyParams.value;
-    var adapterProperties = bodyParams.adapterProperties;
+    var queryProperties = bodyParams.queryProperties;
     var parameters = bodyParams.parameters; // TODO replace Params
 
     DataSource.findById(id,(err, ds)=>{
@@ -16,19 +16,15 @@ function executeDataSource(req, res, next) {
             errorHandler(res,err,400); // dataSource not found
             return;
         }
-        var validateError = AdapterManager.validateQueryProperties(AdapterManager.getAdapter(ds.adapter),adapterProperties);
+        var validateError = AdapterManager.validateQueryProperties(AdapterManager.getAdapter(ds.adapter),queryProperties);
         if(validateError){
-          errorHandler(res,validateError,400); // invalid adapterProperties for query
+          errorHandler(res,validateError,400); // invalid queryProperties for adapter
           return;
         }
-        ExecutorService.executeDataSource(ds, adapterProperties).then((data)=>{
+        ExecutorService.executeDataSource(ds, queryProperties).then((data)=>{
             res.send(200, {data});
         }).catch((err)=>{
-            var status = 500;
-            if(err.type == "adapterProperties"){ // Bad request on adapterProperties
-                status = 400;
-            }
-            errorHandler(res,err,status);
+            errorHandler(res,err);
         });
     });
     

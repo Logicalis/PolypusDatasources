@@ -133,7 +133,7 @@ paths:
   /datasources/{_id}/execute:
     x-swagger-router-controller: executor
     post:
-      description: Execute a query on a dataSource. The body contains the adapterProperties necessary for the adapter.
+      description: Execute a query on a dataSource. The body contains the queryProperties necessary for the adapter.
       operationId: executeDataSource
       parameters:
         - $ref: "#/parameters/idParam"
@@ -141,12 +141,12 @@ paths:
           in: body
           schema:
             properties:
-              adapterProperties:
+              queryProperties:
                 description: Query adapter properties. It will depends on the DataSource
                 type: object
               parameters:
                 description: |
-                  Key value Parameters to be replaced in the query adapterProperties.
+                  Key value Parameters to be replaced in the queryProperties.
                   Example: {"param1" : 123, "param2" : "all", ...}
                 type: object
       responses:
@@ -251,7 +251,7 @@ paths:
             properties:
               parameters:
                 description: |
-                  Key value Parameters to be replaced in the query adapterProperties.
+                  Key value Parameters to be replaced in the queryProperties.
                   Example: {"param1" : 123, "param2" : "all", ...}
                 type: string
       responses:
@@ -292,7 +292,7 @@ definitions:
         type: string
       adapter:
         type: string
-      adapterProperties:
+      datasourceProperties:
         type: object
         
   Query:
@@ -305,7 +305,7 @@ definitions:
       dataSource:
         description: DataSource id
         type: string
-      adapterProperties:
+      queryProperties:
         type: object
         
   Status:

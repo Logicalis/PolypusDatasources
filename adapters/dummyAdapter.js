@@ -4,13 +4,13 @@ const Schema = require('mongoose').Schema;
 
 function configure(dataSource){
 
-    if(dataSource.adapterProperties.dummyProperty < 15){ // just to test errors
+    if(dataSource.datasourceProperties.dummyProperty < 15){ // just to test errors
         return Promise.reject(new Error("Dummy property must be >= 15"));
     }
 
     var configuration = {
         configuredAt: new Date(),
-        dummy: dataSource.adapterProperties.dummyProperty,
+        dummy: dataSource.datasourceProperties.dummyProperty,
         dataSource: dataSource
     }
 
@@ -31,7 +31,7 @@ module.exports = {
     disabled: false,
     displayName: "Dummy Adapter",
     name: "dummyAdapter",
-    adapterProperties: new Schema({
+    datasourceProperties: new Schema({
         dummyProperty: {
             type: Number,
             required: [true, "You must have the dummy property, it's just dummy. Why not?"]
