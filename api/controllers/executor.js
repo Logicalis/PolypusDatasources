@@ -3,15 +3,23 @@
 const ExecutorService = require('lib/executorService');
 const DataSource = require('lib/models/DataSource');
 const errorHandler = require('lib/utils/errorHandler');
+const AdapterManager = require('lib/adapterManager');
 
 function executeDataSource(req, res, next) {
     var id = req.swagger.params._id.value;
-    var adapterProperties = req.swagger.params.adapterProperties.value;
+    var bodyParams = req.swagger.params.bodyParams.value;
+    var adapterProperties = bodyParams.adapterProperties;
+    var parameters = bodyParams.parameters; // TODO replace Params
 
     DataSource.findById(id,(err, ds)=>{
         if(err){
-            errorHandler(res,err,500);
+            errorHandler(res,err,400); // dataSource not found
             return;
+        }
+        var validateError = AdapterManager.validateQueryProperties(AdapterManager.getAdapter(ds.adapter),adapterProperties);
+        if(validateError){
+          errorHandler(res,validateError,400); // invalid adapterProperties for query
+          return;
         }
         ExecutorService.executeDataSource(ds, adapterProperties).then((data)=>{
             res.send(200, {data});

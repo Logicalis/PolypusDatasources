@@ -42,7 +42,9 @@ paths:
         - $ref: "#/parameters/emptyParam"
       responses:
         200:
-          description: OK
+          description: Return how many adapters are loaded.
+          schema:
+            $ref: "#/definitions/CountSchema"
   
   /datasources:
     get:
@@ -127,19 +129,6 @@ paths:
       responses:
         200:
           description: OK
-    # POST identical to PUT
-    # post:
-    #   description: Update an entity
-    #   parameters:
-    #     - name: DataSource
-    #       in: body
-    #       required: true
-    #       schema:
-    #         $ref: "#/definitions/DataSource"
-    #     - $ref: "#/parameters/idParam"
-    #   responses:
-    #     200:
-    #       description: OK
           
   /datasources/{_id}/execute:
     x-swagger-router-controller: executor
@@ -148,12 +137,18 @@ paths:
       operationId: executeDataSource
       parameters:
         - $ref: "#/parameters/idParam"
-        - name: adapterProperties
-          description: Query adapter properties. It will depends on the DataSource Adapter.
+        - name: bodyParams
           in: body
-          required: false
           schema:
-            type: object
+            properties:
+              adapterProperties:
+                description: Query adapter properties. It will depends on the DataSource
+                type: object
+              parameters:
+                description: |
+                  Key value Parameters to be replaced in the query adapterProperties.
+                  Example: {"param1" : 123, "param2" : "all", ...}
+                type: object
       responses:
         200:
           description: Result of the query
@@ -250,14 +245,15 @@ paths:
       operationId: executeQuery
       parameters:
         - $ref: "#/parameters/idParam"
-        - name: parameters
-          description: |
-            Parameters to replace in query.
-            Example: {"param1" : 123, "param2" : "all", ...}
+        - name: bodyParams
           in: body
-          required: false
           schema:
-            type: object
+            properties:
+              parameters:
+                description: |
+                  Key value Parameters to be replaced in the query adapterProperties.
+                  Example: {"param1" : 123, "param2" : "all", ...}
+                type: string
       responses:
         200:
           description: Result of the query
@@ -275,8 +271,17 @@ definitions:
     properties:
       name:
         type: string
-      properties:
+        description: Name to be set to Datasources.
+      displayName:
+        type: string
+        description: User friendly name to display.
+      adapterProperies:
         type: object
+        description: Properties of the adapter that should be provided by DataSources.
+      queryProperties:
+        type: object
+        description: Properties of the adapter queries, should be provided by Queries.
+      
         
   DataSource:
     required:
@@ -312,8 +317,6 @@ definitions:
         format: date-time
       error:
         type: object
-        
-      
 
 parameters:
   idParam:
@@ -382,6 +385,3 @@ parameters:
     required: false
     schema:
       type: object
-      
-  
-    

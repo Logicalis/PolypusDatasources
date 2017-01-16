@@ -19,7 +19,7 @@ function configure(dataSource){
 
 
 function execute(configuration, queryProperties){
-    console.log("Execute query on dataSource:",configuration.dataSource.displayName);
+    console.log("Execute query on dataSource:",configuration.dataSource.name);
     return Promise.resolve({
         message: queryProperties.message,
         dummy: configuration.dummy
