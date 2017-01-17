@@ -44,5 +44,8 @@ module.exports = {
         }
     }),
     execute: execute,
-    configure: configure
+    configure: configure,
+    aditionalProperties:{
+        nothing: "here"
+    }
 }

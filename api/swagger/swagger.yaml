@@ -281,6 +281,9 @@ definitions:
       queryPropertiesSchema:
         type: object
         description: Properties of the adapter queries, should be provided by Queries. MongooseSchema
+      aditionalProperties:
+        description: Aditional properties for application uses. 
+        type: object
       
         
   DataSource:
@@ -295,6 +298,9 @@ definitions:
         type: string
       datasourceProperties:
         type: object
+      aditionalProperties:
+        description: Aditional properties for application uses. 
+        type: object
         
   Query:
     required:
@@ -307,6 +313,9 @@ definitions:
         description: DataSource id
         type: string
       queryProperties:
+        type: object
+      aditionalProperties:
+        description: Aditional properties for application uses. 
         type: object
         
   Status:
