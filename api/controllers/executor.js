@@ -10,7 +10,7 @@ function executeDataSource(req, res, next) {
     var id = req.swagger.params._id.value;
     var bodyParams = req.swagger.params.bodyParams.value;
     var queryProperties = bodyParams.queryProperties;
-    var parameters = bodyParams.parameters;
+    var parameters = bodyParams.parameters || {};
 
     DataSource.findById(id,(err, ds)=>{
         if(err){
@@ -34,7 +34,7 @@ function executeDataSource(req, res, next) {
 function executeQuery(req, res, next) {
     var id = req.swagger.params._id.value;
     var bodyParams = req.swagger.params.bodyParams.value;
-    var parameters = bodyParams.parameters;
+    var parameters = bodyParams.parameters || {};
 
     Query.findById(id).populate('dataSource').exec().then((query)=>{
         if(!query){

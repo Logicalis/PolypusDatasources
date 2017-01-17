@@ -26,6 +26,13 @@ function execute(configuration, queryProperties){
     });
 }
 
+function replaceParams(queryProperties, parameters) {
+    var regex = /\$\{[ ]*([^ ]+)[ ]*\}/g;
+    queryProperties.message = queryProperties.message.replace(regex,(param, key, offset, string) => {
+        return parameters[key] || "";
+    });
+    return queryProperties;
+}
 
 module.exports = {
     disabled: false,
@@ -43,8 +50,9 @@ module.exports = {
             required: [true, "Put some message in the query please. I'm a dummy adapter"]
         }
     }),
-    execute: execute,
-    configure: configure,
+    execute,
+    configure,
+    replaceParams,
     aditionalProperties:{
         nothing: "here"
     }
