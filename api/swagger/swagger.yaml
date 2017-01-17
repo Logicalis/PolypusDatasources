@@ -296,7 +296,7 @@ definitions:
       adapter:
         description: Adapter name
         type: string
-      datasourceProperties:
+      dataSourceProperties:
         type: object
       aditionalProperties:
         description: Aditional properties for application uses. 
