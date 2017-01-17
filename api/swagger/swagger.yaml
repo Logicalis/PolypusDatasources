@@ -253,7 +253,7 @@ paths:
                 description: |
                   Key value Parameters to be replaced in the queryProperties.
                   Example: {"param1" : 123, "param2" : "all", ...}
-                type: string
+                type: object
       responses:
         200:
           description: Result of the query

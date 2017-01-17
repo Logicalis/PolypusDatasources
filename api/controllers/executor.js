@@ -2,6 +2,7 @@
 
 const ExecutorService = require('lib/executorService');
 const DataSource = require('lib/models/DataSource');
+const Query = require('lib/models/Query');
 const errorHandler = require('lib/utils/errorHandler');
 const AdapterManager = require('lib/adapterManager');
 
@@ -9,7 +10,7 @@ function executeDataSource(req, res, next) {
     var id = req.swagger.params._id.value;
     var bodyParams = req.swagger.params.bodyParams.value;
     var queryProperties = bodyParams.queryProperties;
-    var parameters = bodyParams.parameters; // TODO replace Params
+    var parameters = bodyParams.parameters;
 
     DataSource.findById(id,(err, ds)=>{
         if(err){
@@ -21,7 +22,7 @@ function executeDataSource(req, res, next) {
           errorHandler(res,validateError,400); // invalid queryProperties for adapter
           return;
         }
-        ExecutorService.executeDataSource(ds, queryProperties).then((data)=>{
+        ExecutorService.executeDataSource(ds, queryProperties,parameters).then((data)=>{
             res.send(200, {data});
         }).catch((err)=>{
             errorHandler(res,err);
@@ -31,7 +32,23 @@ function executeDataSource(req, res, next) {
 }
 
 function executeQuery(req, res, next) {
-    // TODO
+    var id = req.swagger.params._id.value;
+    var bodyParams = req.swagger.params.bodyParams.value;
+    var parameters = bodyParams.parameters;
+
+    Query.findById(id).populate('dataSource').exec().then((query)=>{
+        if(!query){
+            throw new Error('Query not found: '+id);
+        }
+        ExecutorService.executeQuery(query, parameters).then((data)=>{
+            res.send(200, {data});
+        }).catch((err)=>{
+            errorHandler(res,err);
+        });
+    }).catch((err) => {
+        errorHandler(res,err,400); // query not found
+    });
+
 }
 
 function getAllStatus(req, res, next) {
