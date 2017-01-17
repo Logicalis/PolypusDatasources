@@ -275,12 +275,12 @@ definitions:
       displayName:
         type: string
         description: User friendly name to display.
-      adapterProperies:
+      dataSourcePropertiesSchema:
         type: object
-        description: Properties of the adapter that should be provided by DataSources.
-      queryProperties:
+        description: Properties of the adapter that should be provided by DataSources. MongooseSchema
+      queryPropertiesSchema:
         type: object
-        description: Properties of the adapter queries, should be provided by Queries.
+        description: Properties of the adapter queries, should be provided by Queries. MongooseSchema
       
         
   DataSource:
@@ -291,6 +291,7 @@ definitions:
       name:
         type: string
       adapter:
+        description: Adapter name
         type: string
       datasourceProperties:
         type: object

@@ -31,13 +31,13 @@ module.exports = {
     disabled: false,
     displayName: "Dummy Adapter",
     name: "dummyAdapter",
-    datasourceProperties: new Schema({
+    dataSourcePropertiesSchema: new Schema({
         dummyProperty: {
             type: Number,
             required: [true, "You must have the dummy property, it's just dummy. Why not?"]
         }
     }),
-    queryProperties: new Schema({
+    queryPropertiesSchema: new Schema({
         message: {
             type: String,
             required: [true, "Put some message in the query please. I'm a dummy adapter"]

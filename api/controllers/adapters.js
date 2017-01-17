@@ -7,10 +7,10 @@ function get(req, res) {
   var list = [];
   _.forEach(adapterManager.getAdapters(), function(adapter){
     var adapterJson = Object.assign({},adapter);
-    adapterJson.datasourceProperties = adapterJson.datasourceProperties.paths;
-    delete adapterJson.datasourceProperties._id;
-    adapterJson.queryProperties = adapterJson.queryProperties.paths;
-    delete adapterJson.queryProperties._id;
+    adapterJson.dataSourcePropertiesSchema = adapterJson.dataSourcePropertiesSchema.paths;
+    delete adapterJson.dataSourcePropertiesSchema._id;
+    adapterJson.queryPropertiesSchema = adapterJson.queryPropertiesSchema.paths;
+    delete adapterJson.queryPropertiesSchema._id;
     list.push(adapterJson);
   });
   res.json(list);
