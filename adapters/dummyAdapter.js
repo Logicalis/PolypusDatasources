@@ -53,7 +53,7 @@ module.exports = {
     execute,
     configure,
     replaceParams,
-    aditionalProperties:{
+    additionalProperties:{
         nothing: "here"
     }
 }
