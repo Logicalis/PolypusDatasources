@@ -4,6 +4,7 @@ require('rootpath')();
 
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
+var config = require('./config');
 
 var SwaggerRestify = require('swagger-restify-mw');
 var restify = require('restify');
@@ -35,20 +36,20 @@ module.exports = server; // for testing
 const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://10.55.71.203/datasourceapi');
+mongoose.connect(config.mongodb.url);
 
 require('lib/datasourceService')(server);
 require('lib/queriesService')(server);
 
-var config = {
+var configswagger = {
   appRoot: __dirname // required config
 };
-SwaggerRestify.create(config, function(err, swaggerRestify) {
+SwaggerRestify.create(configswagger, function(err, swaggerRestify) {
   if (err) { throw err; }
 
   swaggerRestify.register(server);
 
-  var port = process.env.PORT || 8080;
+  var port = process.env.PORT || config.http.port || 8080;
   server.listen(port,()=>{
     console.log("Listening on:",port);
   });
