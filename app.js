@@ -17,6 +17,12 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
 
+var adaptersController = require('api/controllers/adapters');
+server.get('/api/adapters', adaptersController.get);
+
+var executorController = require('api/controllers/executor');
+server.get('/api/datasources_status', executorController.getAllStatus);
+
 function corsHandler(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');

@@ -13,7 +13,7 @@ function get(req, res) {
     delete adapterJson.queryPropertiesSchema._id;
     list.push(adapterJson);
   });
-  res.json(list);
+  res.send(200,list);
 }
 
 function reloadAdapters(req, res){

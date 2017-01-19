@@ -61,5 +61,5 @@ module.exports = {
     execute,
     configure,
     replaceParams,
-    aditionalProperties:{}
+    additionalProperties:{}
 }

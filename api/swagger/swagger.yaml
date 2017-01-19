@@ -22,7 +22,6 @@ paths:
     x-swagger-pipe: swagger_raw
     
   /adapters:
-    x-swagger-router-controller: adapters
     get:
       description: Return a list of Adapters available.
       responses:
@@ -87,18 +86,19 @@ paths:
           schema:
             $ref: "#/definitions/CountSchema"
   
-  /datasources_status/:
-    x-swagger-router-controller: executor
+  /datasources_status:
     get:
-      operationId: getAllStatus
       description: Give status of the DataSources like connection errors.
       responses:
         200:
           description: Success
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/Status"
+            type: object
+            properties:
+              __datasourceID__:
+                $ref: "#/definitions/Status"
+              __datasourceID2__:
+                $ref: "#/definitions/Status"
             
   /datasources/{_id}:
     get:

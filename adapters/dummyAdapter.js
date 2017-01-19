@@ -35,7 +35,7 @@ function replaceParams(queryProperties, parameters) {
 }
 
 module.exports = {
-    disabled: false,
+    // disabled: true,
     displayName: "Dummy Adapter",
     name: "dummyAdapter",
     dataSourcePropertiesSchema: new Schema({
