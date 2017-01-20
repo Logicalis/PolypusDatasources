@@ -27,9 +27,9 @@ function execute(configuration, queryProperties){
 }
 
 function replaceParams(queryProperties, parameters) {
-    var regex = /\$\{[ ]*([^ ]+)[ ]*\}/g;
+    var regex = /\${([^}]+)}/g;
     queryProperties.message = queryProperties.message.replace(regex,(param, key, offset, string) => {
-        return parameters[key] || "";
+        return parameters[key.trim()] || "";
     });
     return queryProperties;
 }
