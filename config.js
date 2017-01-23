@@ -10,6 +10,3 @@ const flatConfigObj = YAML.load(process.env.NODE_ENV == 'production' ? ETC_PATH 
 const configObject = unflatten(flatConfigObj);
 
 module.exports = configObject;
-
-require('lib/utils/logger')('datasourceapi')
-    .debug(`Starting DataSourceAPI with the following settings: ${JSON.stringify(configObject)}`);

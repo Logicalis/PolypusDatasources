@@ -6,11 +6,12 @@ var path = require('path');
 global.appRoot = path.resolve(__dirname);
 var config = require('./config');
 
+require('lib/utils/logger')('datasourceapi')
+    .debug(`Starting DataSourceAPI with the following settings: ${JSON.stringify(config)}`);
+
 var SwaggerRestify = require('swagger-restify-mw');
 var restify = require('restify');
 var server = restify.createServer();
-
-var logger = require('lib/utils/logger');
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());

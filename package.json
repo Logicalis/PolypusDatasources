@@ -22,11 +22,19 @@
     "yamljs": "^0.2.8"
   },
   "devDependencies": {
+    "jest": "^18.1.0",
     "should": "^7.1.0",
     "supertest": "^1.0.0"
   },
   "scripts": {
     "start": "node app.js",
-    "test": "swagger project test"
+    "test": "jest"
+  },
+  "jest":{
+    "testEnvironment":"node",
+    "moduleNameMapper":{
+      "^lib/(.*)": "<rootDir>/lib/$1.js",
+      "^api/(.*)": "<rootDir>/api/$1.js"
+    }
   }
 }
