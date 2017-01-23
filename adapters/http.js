@@ -8,7 +8,6 @@ function configure(dataSource){
     return Promise.resolve(props);
 }
 
-
 function execute(dataSourceProperties, queryProperties){
     var url = dataSourceProperties.url+queryProperties.urlEnd;
     var headers = dataSourceProperties.headers;
@@ -18,9 +17,9 @@ function execute(dataSourceProperties, queryProperties){
                 reject(err);
                 return;
             }
-            // if(response.headers['content-type'] === "application/json"){
-            //     body = JSON.parse(body);
-            // }
+            if(response.getContentType() === "application/json"){
+                body = JSON.parse(body);
+            }
             resolve({
                 status: response.statusCode,
                 body
