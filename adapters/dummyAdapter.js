@@ -1,6 +1,7 @@
 'use strict';
 
 const Schema = require('mongoose').Schema;
+const paramReplacer = require('lib/utils/paramReplacer');
 
 function configure(dataSource){
 
@@ -27,10 +28,7 @@ function execute(configuration, queryProperties){
 }
 
 function replaceParams(queryProperties, parameters) {
-    var regex = /\${([^}]+)}/g;
-    queryProperties.message = queryProperties.message.replace(regex,(param, key, offset, string) => {
-        return parameters[key.trim()] || "";
-    });
+    queryProperties.message = paramReplacer(queryProperties.message, parameters);
     return queryProperties;
 }
 

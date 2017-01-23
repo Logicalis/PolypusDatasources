@@ -2,6 +2,7 @@
 
 const Schema = require('mongoose').Schema;
 const request = require('request');
+const paramReplacer = require('lib/utils/paramReplacer');
 
 function configure(dataSource){
     var props = dataSource.dataSourceProperties;
@@ -29,10 +30,7 @@ function execute(dataSourceProperties, queryProperties){
 }
 
 function replaceParams(queryProperties, parameters) {
-    var regex = /\${([^}]+)}/g;
-    queryProperties.urlEnd = queryProperties.urlEnd.replace(regex, (param, key, offset, string) => {
-        return parameters[key.trim()] || "";
-    });
+    queryProperties.urlEnd = paramReplacer(queryProperties.urlEnd, parameters);
     return queryProperties;
 }
 
