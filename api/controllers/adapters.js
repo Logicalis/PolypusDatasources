@@ -21,7 +21,7 @@ function reloadAdapters(req, res){
     let count = adapterManager.loadAdapters();
     res.send(200, {
       count: count
-    })
+    });
   }
   catch(err){
     res.send(500,err);

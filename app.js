@@ -3,7 +3,6 @@
 require('rootpath')();
 
 var path = require('path');
-global.appRoot = path.resolve(__dirname);
 var config = require('./config');
 
 require('lib/utils/logger')('datasourceapi')
