@@ -86,7 +86,7 @@ paths:
           schema:
             $ref: "#/definitions/CountSchema"
   
-  /datasources_status:
+  /datasources/status:
     get:
       description: Give status of the DataSources like connection errors.
       responses:

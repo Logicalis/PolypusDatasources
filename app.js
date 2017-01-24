@@ -22,7 +22,7 @@ var adaptersController = require('api/controllers/adapters');
 server.get('/api/adapters', adaptersController.get);
 
 var executorController = require('api/controllers/executor');
-server.get('/api/datasources_status', executorController.getAllStatus);
+server.get('/api/datasources/status', executorController.getAllStatus);
 
 function corsHandler(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
