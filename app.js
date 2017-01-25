@@ -44,8 +44,8 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodb.url);
 
-require('lib/datasourceService')(server);
-require('lib/queriesService')(server);
+require('lib/datasourceController')(server);
+require('lib/queriesController')(server);
 
 var configswagger = {
   appRoot: __dirname // required config
