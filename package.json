@@ -24,8 +24,7 @@
   },
   "devDependencies": {
     "jest": "^18.1.0",
-    "should": "^7.1.0",
-    "supertest": "^1.0.0"
+    "jest-faustao-errou": "^1.0.0"
   },
   "scripts": {
     "start": "node app.js",
@@ -36,6 +35,7 @@
     "moduleNameMapper": {
       "^lib/(.*)": "<rootDir>/lib/$1.js",
       "^api/(.*)": "<rootDir>/api/$1.js"
-    }
+    },
+    "testResultsProcessor": "<rootDir>/node_modules/jest-faustao-errou/index.js"
   }
 }
