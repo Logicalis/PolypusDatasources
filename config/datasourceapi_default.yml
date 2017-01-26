@@ -1,0 +1,6 @@
+http.port: 4000
+
+logger.dir: /var/log/datasourceapi/
+logger.level: INFO
+
+mongodb.url: mongodb://localhost/datasourceapi

@@ -13,6 +13,4 @@ function fileOrDirExists(filePath) {
 function mkdir(dir) {
     mkdirp(dir, (err) => {if (err) throw err});
 };
-console.log(config.logger.dir);
-console.log(fileOrDirExists(config.logger.dir));
 ( !fileOrDirExists(config.logger.dir) && mkdir(config.logger.dir) ); // Create logger dir if not exists
