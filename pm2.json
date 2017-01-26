@@ -1,0 +1,15 @@
+{
+  "apps": [
+    {
+      "name": "datasourceapi",
+      "watch": false,
+      "script": "/opt/logicalis/datasourceapi/app.js",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "env_development": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+}

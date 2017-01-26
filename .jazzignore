@@ -34,4 +34,5 @@ core.ignore= \
         {tmp-*} \
         {logs} \
         {.git} \
-        {.vscode} 
+        {.vscode} \
+        {coverage}

@@ -23,6 +23,8 @@
     "yamljs": "^0.2.8"
   },
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-easy-rpm": "^1.5.6",
     "jest": "^18.1.0",
     "jest-faustao-errou": "^1.0.0"
   },
