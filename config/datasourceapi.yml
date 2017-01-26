@@ -1,7 +1,6 @@
-http.port: 8080
+http.port: 4000
 
-#logger.dir: /var/log/datasourceapi/
-logger.dir: ./logs/
-logger.level: DEBUG
+logger.dir: /var/log/datasourceapi/
+logger.level: INFO
 
-mongodb.url: mongodb://10.55.71.203/datasourceapi
+mongodb.url: mongodb://localhost/datasourceapi

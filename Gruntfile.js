@@ -22,19 +22,24 @@ module.exports = function (grunt) {
                     dirMode: 755
                 }
             },
+            postInstallScript:[
+                "cd /opt/logicalis/datasourceapi/ && npm install --production",
+                "cd /opt/logicalis/datasourceapi/ && node postInstallScript.js"
+            ],
             release: {
                 files: [
                     {src: 'app.js', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'config.js', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'package.json', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'lib/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'node_modules/**/*', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'README.md', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'api/**/*', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'pm2.json', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'adapters/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    
-                    {src: 'config/*.yml', dest: '/etc/logicalis/datasourceapi/'}
+                    {src: 'config/default.yaml', dest: '/opt/logicalis/datasourceapi/'},
+                    // {src: 'node_modules/**/*', dest: '/opt/logicalis/datasourceapi/'},
+
+                    {config: true, cwd: "config", src: 'datasourceapi.yml', dest: '/etc/logicalis/datasourceapi/'}
                 ]
             }
         }
