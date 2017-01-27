@@ -32,7 +32,7 @@ core.ignore= \
         {bin} \
         {*.rpm} \
         {tmp-*} \
-        {logs} \
+        {logs/*.log} \
         {.git} \
         {.vscode} \
         {coverage}
