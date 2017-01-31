@@ -1,0 +1,11 @@
+# example of configuration with docker-compose
+
+version: '2'
+services:
+    datasourceapi:
+        image: datasourceapi
+        ports:
+            - 4000:4000
+        volumes:
+            - /c/datasourceapi/logs/:/opt/logicalis/datasourceapi/logs/:rw
+            - /c/datasourceapi/datasourceapi.yml:/etc/logicalis/datasourceapi/datasourceapi.yml:rw

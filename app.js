@@ -42,7 +42,7 @@ module.exports = server; // for testing
 const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongodb.url);
+mongoose.connect(process.env.MONGODB_URL || config.mongodb.url);
 
 require('lib/datasourceController')(server);
 require('lib/queriesController')(server);
