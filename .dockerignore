@@ -20,3 +20,4 @@ Gruntfile.js
 Makefile
 pm2.json
 *.md
+*.svg

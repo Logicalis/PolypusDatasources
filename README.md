@@ -22,13 +22,30 @@ A conexão com o banco pode ser feita na inicialização deste serviço ou antes
 Este componente possui uma API para ser consumida, ela basicamente controla o gerenciamento de DataSources e Queries.
 
 ## Arquitetura
-TODO
+![DataSourceAPI Diagram](./arquitetura.svg)
+
 ## Documentação da API
 Para acessar a documentação Swagger com a aplicação rodando:
 
-http://10.55.71.127/swagger/?url=http://localhost:4000/api/swagger#/default
+http://10.55.71.127:8080/?url=http://localhost:4000/api/swagger#/default
 
 Substitua `localhost:4000` pelo endereço e porta que a aplicação está rodando.
 
 ## Como implementar um novo Adapter
-TODO
+
+Os Adapters são objetos que especificam os dados necessários para criar DataSources e Queries de uma fonte de dados.
+Eles possuem funções que são reponsáveis por se conectar, substituir parâmetros de consulta e realizar consultas em uma fonte de dados a partir dos dados fornecidos pelas entidades.
+
+| Atributo                   | Descrição                                                                                                                        |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| displayName                | Nome para ser usado na exibição em GUI.                                                                                          |
+| name                       | Nome identificador do adapter que dever ser referenciado pelos DataSources. Deve ser único entre outros Adapters.                |
+| dataSourcePropertiesSchema | Schema do Mongoose para especificar os atributos de configuração de DataSources. Exemplo: url de conexão, nome do database...    |
+| queryPropertiesSchema      | Schema do Mongoose para especificar os atributos de configuração de Queries. Por exemplo: SQL, objeto de query do Elasticsearch. |
+|                            |                                                                                                                                  |
+|                            |                                                                                                                                  |
+|                            |                                                                                                                                  |
+|                            |                                                                                                                                  |
+
+Gerado com:
+http://www.tablesgenerator.com/markdown_tables
