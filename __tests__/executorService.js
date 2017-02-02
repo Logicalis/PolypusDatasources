@@ -34,7 +34,7 @@ describe('Executor service',()=>{
 
     it('should be initialized',() => {
         return executor.isLoadedPromise.then((statuses)=>{
-            expect(Object.keys(statuses).length).toBeGreaterThan(0);
+            expect(Object.keys(statuses).length).toBe(1);
             expect(DataSource.find).toHaveBeenCalledTimes(1);
             expect(statuses[ds._id].ok).toBeTruthy();
         });
