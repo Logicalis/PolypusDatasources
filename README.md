@@ -27,7 +27,7 @@ Este componente possui uma API para ser consumida, ela basicamente controla o ge
 ## Documentação da API
 Para acessar a documentação Swagger com a aplicação rodando:
 
-http://10.55.71.127:8080/?url=http://localhost:4000/api/swagger#/default
+http://10.55.71.127/swagger?url=http://localhost:4000/api/swagger#/default
 
 Substitua `localhost:4000` pelo endereço e porta que a aplicação está rodando.
 
@@ -65,3 +65,13 @@ Eles possuem funções que são reponsáveis por se conectar, substituir parâme
 | dataSource           | ID do DataSource referenciado pela Query                                                            |
 | queryProperties      | Objeto com atributos da Query que são definidos pelo Adapter.                                       |
 | additionalProperties | Objeto com propriedades adicionais que podem ser usadas pelas aplicações clientes do DataSourceAPI. |
+
+## Script criação de DataSource
+
+Na pasta 'scripts' temos o script para criar DataSources.
+Execute:
+
+    node ./scripts/createDataSource.js
+
+No script deverá ser informado o endereço que o DataSourceAPI está executando.
+Em alguns casos pode ser necessário escrever o DataSourceProperties em JSON no editor padrão do sistema.

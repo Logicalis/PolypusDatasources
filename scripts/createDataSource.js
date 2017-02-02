@@ -28,9 +28,15 @@ var questions = [
 inquirer.prompt(questions).then((dataSource) => {
     var address = dataSource.address;
     delete dataSource.address;
-
-    console.log(address);
-    console.log(dataSource);
     var client = restify.createJsonClient(address);
+
+    client.post('/api/datasources',dataSource,(err,req,res,obj) => {
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log("Status:",res.statusCode);
+        console.log("Response body:\n",obj);
+    });
     
 });
