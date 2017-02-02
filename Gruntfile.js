@@ -32,6 +32,7 @@ module.exports = function (grunt) {
                     {src: 'postInstallScript.js', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'package.json', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'lib/**/*', dest: '/opt/logicalis/datasourceapi/'},
+                    {src: 'scripts/**/*', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'README.md', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'api/**/*', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'pm2.json', dest: '/opt/logicalis/datasourceapi/'},
