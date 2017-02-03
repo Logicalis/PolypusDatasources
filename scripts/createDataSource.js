@@ -22,7 +22,8 @@ var questions = [
     {name: "name", type: 'input', message: "Name of the DataSource:"},
     {name: "dataSourceProperties.url", type: 'input', message: "Elasticsearch URL:", when: whenElastic},
     {name: "dataSourceProperties.index", type: 'input', message: "Elasticsearch Index:", when: whenElastic},
-    {name: "dataSourceProperties", type: 'editor', message: "DataSource properties:", when: whenNotElastic, filter: JSON.parse}
+    {name: "dataSourceProperties", type: 'editor', message: "DataSource properties:", when: whenNotElastic, filter: JSON.parse},
+    {name: "additionalProperties", type: 'editor', message: "Additional properties:", filter: JSON.parse}
 ];
 
 inquirer.prompt(questions).then((dataSource) => {
@@ -37,6 +38,5 @@ inquirer.prompt(questions).then((dataSource) => {
         }
         console.log("Status:",res.statusCode);
         console.log("Response body:\n",obj);
-    });
-    
+    });    
 });
