@@ -47,6 +47,22 @@ mongoose.connect(process.env.MONGODB_URL || config.mongodb.url);
 require('lib/datasourceController')(server);
 require('lib/queriesController')(server);
 
+
+const unflatten = require('flat').unflatten;
+const YAML = require('yamljs');
+
+try {
+  var swaggerObject = unflatten(YAML.load(path.resolve('./api/swagger/swagger.yaml')));
+  swaggerObject.basePath = process.env.BASEPATH || config.basePath || swaggerObject.basePath; // allow to change basepath via Env or Config. To use behind a nginx url for instance
+} catch (err) {
+  console.log(err);
+}
+
+// serving the swagger.yaml file to change the basePath according to configuration allowing to server under proxy servers.
+server.get('/api/swagger',(req,res,next) => {
+  res.json(200,swaggerObject);
+});
+
 var configswagger = {
   appRoot: __dirname // required config
 };

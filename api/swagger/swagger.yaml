@@ -3,7 +3,7 @@ info:
   version: "0.1.0"
   title: DataSourceAPI
 # during dev, should point to your local machine
-host: localhost:4000
+# host: localhost:4000
 # basePath prefixes all resource paths 
 basePath: /api
 # 
@@ -19,7 +19,8 @@ produces:
   - application/json
 paths:
   /swagger:
-    x-swagger-pipe: swagger_raw
+    x-description: Get this yml swagger file.
+    # x-swagger-pipe: swagger_raw
     
   /adapters:
     get:

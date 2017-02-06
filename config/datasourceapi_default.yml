@@ -4,3 +4,5 @@ logger.dir: /var/log/datasourceapi/
 logger.level: INFO
 
 mongodb.url: mongodb://localhost/datasourceapi
+
+# basePath: /datasourceapi/api # use this if you are serving the api under a proxy server like nginx
