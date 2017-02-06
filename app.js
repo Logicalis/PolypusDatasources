@@ -52,7 +52,7 @@ const unflatten = require('flat').unflatten;
 const YAML = require('yamljs');
 
 try {
-  var swaggerObject = unflatten(YAML.load(path.resolve('./api/swagger/swagger.yaml')));
+  var swaggerObject = unflatten(YAML.load(path.resolve(__dirname,'./api/swagger/swagger.yaml')));
   swaggerObject.basePath = process.env.BASEPATH || config.basePath || swaggerObject.basePath; // allow to change basepath via Env or Config. To use behind a nginx url for instance
 } catch (err) {
   console.log(err);
