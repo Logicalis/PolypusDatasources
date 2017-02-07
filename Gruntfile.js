@@ -20,16 +20,12 @@ module.exports = function (grunt) {
                     user: 'datasourceapi',
                     group: 'datasourceapi',
                     dirMode: 755
-                },
-                postInstallScript:[
-                    "cd /opt/logicalis/datasourceapi/ && NODE_ENV=production node postInstallScript.js"
-                ]
+                }
             },
             release: {
                 files: [
                     {src: 'app.js', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'config.js', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'postInstallScript.js', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'package.json', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'lib/**/*', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'scripts/**/*', dest: '/opt/logicalis/datasourceapi/'},
