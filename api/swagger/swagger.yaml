@@ -114,6 +114,13 @@ paths:
     delete:
       parameters:
         - $ref: "#/parameters/idParam"
+        - name: removeQueries
+          in: query
+          description: | 
+            Remove related queries
+            Example: removeQueries=true
+          required: false
+          type: boolean
       description: Delete one entity.
       responses:
         200:
