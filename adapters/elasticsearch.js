@@ -15,7 +15,7 @@ function configure(dataSource){
     return client.ping({
         requestTimeout: 30000
     }).then(() => {
-        return Promise.resolve({client, index: dataSource.index});
+        return Promise.resolve({client, index: props.index});
     });
 }
 
