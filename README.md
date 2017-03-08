@@ -1,12 +1,27 @@
 # DataSourceAPI
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Objetivo](#objetivo)
+- [Arquitetura](#arquitetura)
+- [Documentação da API](#documenta%C3%A7%C3%A3o-da-api)
+- [Como implementar um novo Adapter](#como-implementar-um-novo-adapter)
+- [DataSources](#datasources)
+- [Queries](#queries)
+- [Script criação de DataSource](#script-cria%C3%A7%C3%A3o-de-datasource)
+- [Adapters Implementados](#adapters-implementados)
+- [Roadmap de desenvolvimento](#roadmap-de-desenvolvimento)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Objetivo
 
 Este componente é responsável por gerenciar conexões com fontes de dados diversas e realizar consultas de dados.
 
-Está implementado no componente diversos **Adaptaders** de dados e novos podem ser implementados em JavaScript.
-Os Adaptaders atuais são de Elasticsearch, HTTP Get request e PostgreSQL.
-Os adaptdores definem como é feita a conexão a uma fonte de dados e como é feito a consulta destes dados.
+Está implementado no componente diversos **Adaptadores** de dados e novos podem ser implementados em JavaScript.
+Os adaptadores definem como é feita a conexão a uma fonte de dados e como é feito a consulta destes dados.
 
 **DataSources** são entidades cadastradas no serviço que são instâncias da conexão de um Adapter.
 O DataSource deve ter os atributos necessários para se conectar à uma fonte de dados, esses atributos são definidos pelo seu adapter.
@@ -75,3 +90,29 @@ Execute:
 
 No script deverá ser informado o endereço que o DataSourceAPI está executando.
 Em alguns casos pode ser necessário escrever o DataSourceProperties em JSON no editor padrão do sistema.
+
+## Adapters Implementados
+ - PostgreSQL
+ - Elasticsearch
+ - HTTP REST
+ 
+
+## Roadmap de desenvolvimento
+
+Lista de possíveis melhorias e funcionalidades no produto.
+ - Interface gráfica web para monitoração e cadastro de entidades.
+ - Adapters permitirem paginação dos dados.
+ - Cachear resultados das consultas evitando consultas repetitivas, configurável, (auxiliando na paginação).
+ - Outras interfaces de API e transmissão de dados, como AMQP.
+ - Alta disponibilidade com clusterização.
+ - Stream de dados
+
+Adapters desejáveis:
+ - MongoDB
+ - MySQL
+ - Google Drive Spreadhsheets
+ - OracleSQL
+ - Cassandra
+ - CouchDB
+ - RethinkDB
+ - Redis
