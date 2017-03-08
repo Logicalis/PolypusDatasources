@@ -16,101 +16,104 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Objetivo
+## What is it for
 
-Este componente é responsável por gerenciar conexões com fontes de dados diversas e realizar consultas de dados.
+This component manages conections with various data sources and performing data queries.
+This component has various data **Adapters** and new ones can be developed.
+The adapters define how the connection to a data source is made and how the data is queried.
 
-Está implementado no componente diversos **Adaptadores** de dados e novos podem ser implementados em JavaScript.
-Os adaptadores definem como é feita a conexão a uma fonte de dados e como é feito a consulta destes dados.
+**DataSources** are entities that represent an instance of the connection of an Adapter.
+The DataSource must have the attributes needed to connect to a data source, these attributes are defined by its adapter.
+The Elasticsearch Adapter, for instance, defines that your DataSources must have the URL and the Index of an Elasticsearch database.
 
-**DataSources** são entidades cadastradas no serviço que são instâncias da conexão de um Adapter.
-O DataSource deve ter os atributos necessários para se conectar à uma fonte de dados, esses atributos são definidos pelo seu adapter.
-O Adapter de Elasticsearch, por exemplo, define que seus DataSources tenham a URL e o Index de um banco Elasticsearch.
+**Queries** are entities that represent queries to be made on a DataSource.
+The Query must have the attributes needed to specify a query to a data source, which is defined by its DataSource.
+The Elasticsearch Adapter, for instance, defines that Queries created over Elasticsearch DataSources have a Query object and a Type of an Elasticsearch database.
 
-**Queries** são entidades cadastradas no serviço que representam consultas a serem feitas sobre um DataSource.
-A Query deve ter os atributos necessários para especificar uma consulta à uma fonte dados, esta definida pelo seu DataSource.
-O Adapter de Elasticsearch, por exemplo, define que as Queries criadas sobre DataSources de Elasticsearch tenham uma Query e um Type de uma instância Elasticsearch.
+When a query is executed, the adapter will use the DataSource specification to connect to the data source and the Query specification to query the data.
+The connection to the data saource can be made at the initialization of this service or before each query. This is defined by the Adapter.
 
-Ao executar uma Query o Adapter utilizará a especificação do DataSource para se conectar na fonte de dados e a especificação da Query para consultar os dados.
-A conexão com o banco pode ser feita na inicialização deste serviço ou antes de cada consultas. Isto é definido pelo Adapter.
+This component has a Rest API that controls the management of DataSources and Queries.
 
-Este componente possui uma API para ser consumida, ela basicamente controla o gerenciamento de DataSources e Queries.
+## Architecture
+![DataSourceAPI Diagram](./diagram.png)
 
-## Arquitetura
-![DataSourceAPI Diagram](./arquitetura.png)
+## API Docs
+The API is documented using [Swagger](http://swagger.io/). 
+It serves the Swagger file in the url: http://localhost:4000/api/swagger
+You can read it using an Swagger UI:
 
-## Documentação da API
-Para acessar a documentação Swagger com a aplicação rodando:
+http://petstore.swagger.io/?url=http://localhost:4000/api/swagger#/default
 
-http://10.55.71.127/swagger?url=http://localhost:4000/api/swagger#/default
+Replace `localhost:4000` with the address and port of your running service.
 
-Substitua `localhost:4000` pelo endereço e porta que a aplicação está rodando.
+## How to implement a new Adapter
 
-## Como implementar um novo Adapter
+Adapters are objects that specify the data needed to create DataSources and Queries from a data source.
+They have functions that are responsible for connecting, overriding query parameters and querying a data source from the data provided by the Query and DataSource entities.
 
-Os Adapters são objetos que especificam os dados necessários para criar DataSources e Queries de uma fonte de dados.
-Eles possuem funções que são reponsáveis por se conectar, substituir parâmetros de consulta e realizar consultas em uma fonte de dados a partir dos dados fornecidos pelas entidades.
-
-| Atributos                                  | Descrição                                                                                                                                                                                                                                                                                                                                                        |
-|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| displayName                                | Nome para ser usado na exibição em GUI.                                                                                                                                                                                                                                                                                                                                                        |
-| name                                       | Nome identificador do adapter que dever ser referenciado pelos DataSources. Deve ser único entre outros Adapters.                                                                                                                                                                                                                                                                              |
-| dataSourcePropertiesSchema                 | Schema do Mongoose para especificar os atributos de configuração de DataSources. Exemplo: url de conexão, nome do database...                                                                                                                                                                                                                                                                  |
-| queryPropertiesSchema                      | Schema do Mongoose para especificar os atributos de configuração de Queries. Por exemplo: SQL, objeto de query do Elasticsearch.                                                                                                                                                                                                                                                               |
-| configure(dataSource)                      | Função que configura um DataSource para permitir que ele receba consultas. A função recebe o DataSource como parâmetro e deve retornar uma Promise que resolve com um objeto de configuração. Este objeto será usado para realizar consultas, de acordo com o Adapter, ele pode ser uma conexão com a fonte de dados, um pool de conexões, ou um simples objeto com informações do DataSource. |
-| replaceParams(queryProperties, parameters) | Função que substitui os os parâmetros enviados para um consulta. A função recebe o queryProperties de uma consulta e o objeto de parametros, e deve retornar o objeto de queryProperties com os parâmetros substituídos.                                                                                                                                                                       |
-| execute(configuration, queryProperties)    | Função que executa uma consulta na fonte de dados. Recebe o objeto de configuração criado pela função `configure` e o queryProperties com os parâmetros já substituídos pela função `replaceParams`. A função deve retornar uma promise que resolve com os dados resultantes da consulta.                                                                                                      |
-| additionalProperties                       | Objeto com propriedades adicionais que podem ser usadas pelas aplicações clientes do DataSourceAPI.                                                                                                                                                                                                                                                                                         |
+| Property | Description |
+|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| displayName | Name to be used in UI. |
+| name | Identifier name of the Adapter that must be referenced by the DataSources. Must be unique among other Adapters. |
+| dataSourcePropertiesSchema | Mongoose Schema to specify the DataSources configuration attributes. Example: connection url, database name ... |
+| queryPropertiesSchema | Mongoose Schema to specify the Queries configuration attributes. For example: SQL, Elasticsearch query object. |
+| configure(dataSource) | A function that sets up a DataSource to allow it to receive queries. The function receives the DataSource as a parameter and must return a Promise that resolves with a configuration object. This object will be used to perform queries, according to the Adapter, it can be a connection to the data source, a pool of connections, or a simple object with DataSource information. |
+| replaceParams(queryProperties, parameters) | Function that replaces the parameters sent to a query. The function receives the queryProperties from a query and the parameter object, and should return the queryProperties object with the replaced parameters. |
+| execute(configuration, queryProperties) | Function that performs a query on the data source. Receives the configuration object created by the `configure` function and the queryProperties with the parameters already replaced by the `replaceParams` function. The function should return a promise that resolves with the resulting query data. |
+| additionalProperties | Object with additional properties that can be used by client applications. |
 
 
 ## DataSources
 
-| Atributos            | Descrição                                                                                           |
-|----------------------|-----------------------------------------------------------------------------------------------------|
-| name                 | Nome único do DataSource                                                                            |
-| adapter              | ID do Adapter utilizado pelo DataSource                                                             |
-| dataSourceProperties | Objeto com atributos do DataSource que são definidos pelo Adapter                                   |
-| additionalProperties | Objeto com propriedades adicionais que podem ser usadas pelas aplicações clientes do DataSourceAPI. |
+| Property | Description |
+|----------------------|-------------------------------------------------------------------------------------------------------|
+| name | Unique DataSource Name |
+| adapter | Adapter ID used by DataSource |
+| dataSourceProperties | Object with DataSource attributes that are defined by the Adapter |
+| additionalProperties | Object with additional properties that can be used by client applications to store extra information. |
 
 ## Queries
 
-| Atributos            | Descrição                                                                                           |
-|----------------------|-----------------------------------------------------------------------------------------------------|
-| name                 | Nome único da Query                                                                                 |
-| dataSource           | ID do DataSource referenciado pela Query                                                            |
-| queryProperties      | Objeto com atributos da Query que são definidos pelo Adapter.                                       |
-| additionalProperties | Objeto com propriedades adicionais que podem ser usadas pelas aplicações clientes do DataSourceAPI. |
+| Property | Description |
+|----------------------|----------------------------------------------------------------------------|
+| name | Query unique name |
+| dataSource | DataSource ID referenced by Query |
+| queryProperties | Object with Query attributes that are defined by the Adapter. |
+| additionalProperties | Object with additional properties that can be used by client applications to store extra information. |
 
-## Script criação de DataSource
+## Scripts
 
-Na pasta 'scripts' temos o script para criar DataSources.
-Execute:
+### Create DataSource
+
+In the 'scripts' folder we have the script to create DataSources.
+Run:
 
     node ./scripts/createDataSource.js
 
-No script deverá ser informado o endereço que o DataSourceAPI está executando.
-Em alguns casos pode ser necessário escrever o DataSourceProperties em JSON no editor padrão do sistema.
+In the script you must be informed of the address that the service is running.
+In some cases it may be necessary to write the DataSourceProperties to JSON in the default system editor.
 
-## Adapters Implementados
+## Implemented Adapters
  - PostgreSQL
  - Elasticsearch
  - HTTP REST
  
 
-## Roadmap de desenvolvimento
+## Development Roadmap
 
-Lista de possíveis melhorias e funcionalidades no produto.
- - Interface gráfica web para monitoração e cadastro de entidades.
- - Adapters permitirem paginação dos dados.
- - Cachear resultados das consultas evitando consultas repetitivas, configurável, (auxiliando na paginação).
- - Outras interfaces de API e transmissão de dados, como AMQP.
- - Alta disponibilidade com clusterização.
- - Stream de dados
+List of possible improvements and features in this service:
+  - Graphical web interface for monitoring and entities management.
+  - Adapters allow data pagination.
+  - Cache query results avoiding repetitive queries, configurable, (assisting in pagination).
+  - Other API interfaces and data transport, such as AMQP.
+  - High availability with clustering.
+  - Streams of data
 
-Adapters desejáveis:
+Adapters to be implemented:
  - MongoDB
  - MySQL
- - Google Drive Spreadhsheets
+ - Google Drive Spreadsheets
  - OracleSQL
  - Cassandra
  - CouchDB
