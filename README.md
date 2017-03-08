@@ -4,15 +4,16 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Objetivo](#objetivo)
-- [Arquitetura](#arquitetura)
-- [Documentação da API](#documenta%C3%A7%C3%A3o-da-api)
-- [Como implementar um novo Adapter](#como-implementar-um-novo-adapter)
+- [What is it for](#what-is-it-for)
+- [Architecture](#architecture)
+- [API Docs](#api-docs)
+- [How to implement a new Adapter](#how-to-implement-a-new-adapter)
 - [DataSources](#datasources)
 - [Queries](#queries)
-- [Script criação de DataSource](#script-cria%C3%A7%C3%A3o-de-datasource)
-- [Adapters Implementados](#adapters-implementados)
-- [Roadmap de desenvolvimento](#roadmap-de-desenvolvimento)
+- [Scripts](#scripts)
+  - [Create DataSource](#create-datasource)
+- [Implemented Adapters](#implemented-adapters)
+- [Development Roadmap](#development-roadmap)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

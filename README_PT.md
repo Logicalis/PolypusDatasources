@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Objetivo](#objetivo)
+- [Para que serve](#para-que-serve)
 - [Arquitetura](#arquitetura)
 - [Documentação da API](#documenta%C3%A7%C3%A3o-da-api)
 - [Como implementar um novo Adapter](#como-implementar-um-novo-adapter)
