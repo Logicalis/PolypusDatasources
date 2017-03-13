@@ -3,6 +3,7 @@
 require('rootpath')();
 
 var path = require('path');
+const os = require('os');
 var config = require('./config');
 
 const DEFAULT_PID_PATH = '/var/run/logicalis/datasourceapi/';
