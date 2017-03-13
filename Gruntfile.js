@@ -15,6 +15,10 @@ module.exports = function (grunt) {
                 vendor: 'Logicalis',
                 group: 'Application',
                 license: 'Closed',
+                requires: ["nodejs >= 6.9.1"],
+                postInstallScript: [
+                    'systemctl daemon-reload'
+                ]
                 defaultAttributes: {
                     mode: 644,
                     user: 'datasourceapi',
@@ -35,6 +39,7 @@ module.exports = function (grunt) {
                     {src: 'adapters/**/*', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'config/default.yaml', dest: '/opt/logicalis/datasourceapi/'},
                     {src: 'node_modules/**/*', dest: '/opt/logicalis/datasourceapi/'},
+                    {src: "*", dest: '/usr/lib/systemd/system/', cwd: "./systemd/"},
 
                     {config: true, cwd: "config", src: 'datasourceapi.yml', dest: '/etc/logicalis/datasourceapi/'}
                 ]

@@ -1,0 +1,12 @@
+[Unit]
+Description=DataSourceAPI
+
+[Service]
+User=root
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/logicalis/datasourceapi
+ExecStart=/usr/bin/node app.js
+PIDFile=/var/run/logicalis/datasourceapi/datasourceapi.pid
+
+[Install]
+WantedBy=multi-user.target

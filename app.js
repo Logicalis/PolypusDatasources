@@ -5,6 +5,20 @@ require('rootpath')();
 var path = require('path');
 var config = require('./config');
 
+const DEFAULT_PID_PATH = '/var/run/logicalis/datasourceapi/';
+
+function writePIDFile() {
+    const dirPath = config.process.pid_file_path || DEFAULT_PID_PATH;
+    const pidFilePath = path.join(dirPath, 'datasourceapi.pid');
+    mkdirp.sync(dirPath);
+    fs.writeFile(pidFilePath, process.pid);
+}
+
+// write PID file if OS is UNIX
+if (os.platform() === 'linux') {
+    writePIDFile();
+}
+
 require('lib/utils/logger')('datasourceapi')
     .debug(`Starting DataSourceAPI with the following settings: ${JSON.stringify(config)}`);
 
