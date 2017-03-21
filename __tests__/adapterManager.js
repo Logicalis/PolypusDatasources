@@ -21,16 +21,24 @@ describe('Adapter Manager',()=>{
         var dummyAdapter = adapterManager.getAdapter('dummyAdapter');
         
         var dataSourceProperties = {};
-        expect(adapterManager.validateDataSourceProperties(dummyAdapter,dataSourceProperties) instanceof Error).toBeTruthy();
+        var valid = adapterManager.validateDataSourceProperties(dummyAdapter,dataSourceProperties);
+        expect(valid instanceof Array).toBeTruthy();
 
         dataSourceProperties.dummyProperty = 5;
-        expect(adapterManager.validateDataSourceProperties(dummyAdapter,dataSourceProperties)).toBeUndefined();
+        valid = adapterManager.validateDataSourceProperties(dummyAdapter,dataSourceProperties);
+        expect(valid).toBeUndefined();
+
+        dataSourceProperties.dummyProperty = "aasdasd";
+        valid = adapterManager.validateDataSourceProperties(dummyAdapter,dataSourceProperties);
+        expect(valid[0].message).toBe('should be number');
         
         var queryProperties = {};
-        expect(adapterManager.validateQueryProperties(dummyAdapter,queryProperties) instanceof Error).toBeTruthy();
+        var validQuery = adapterManager.validateQueryProperties(dummyAdapter,queryProperties);
+        expect(validQuery instanceof Array).toBeTruthy();
 
         queryProperties.message = "test";
-        expect(adapterManager.validateQueryProperties(dummyAdapter,queryProperties)).toBeUndefined();
+        var validQuery = adapterManager.validateQueryProperties(dummyAdapter,queryProperties);
+        expect(validQuery).toBeUndefined();
 
     });
 

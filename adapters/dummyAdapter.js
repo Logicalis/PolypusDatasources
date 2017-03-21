@@ -1,6 +1,5 @@
 'use strict';
 
-const Schema = require('mongoose').Schema;
 const paramReplacer = require('lib/utils/paramReplacer');
 
 function configure(dataSource){
@@ -36,18 +35,33 @@ module.exports = {
     // disabled: true,
     displayName: "Dummy Adapter",
     name: "dummyAdapter",
-    dataSourcePropertiesSchema: new Schema({
-        dummyProperty: {
-            type: Number,
-            required: [true, "You must have the dummy property, it's just dummy. Why not?"]
-        }
-    }),
-    queryPropertiesSchema: new Schema({
-        message: {
-            type: String,
-            required: [true, "Put some message in the query please. I'm a dummy adapter"]
-        }
-    }),
+    dataSourcePropertiesSchema: {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Dummy Adapter Properties",
+        "description": "",
+        "type": "object",
+        "properties": {
+            "dummyProperty": {
+                "type": "number",
+                "title": "Dummy Property",
+                "ui:widget": "updown"
+            }
+        },
+        "required": ['dummyProperty']
+    },
+    queryPropertiesSchema:{
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Dummy Adapter Properties",
+        "description": "",
+        "type": "object",
+        "properties": {
+            "message": {
+                "type": "string",
+                "title": "Message"
+            }
+        },
+        "required": ["message"]
+    },
     execute,
     configure,
     replaceParams,

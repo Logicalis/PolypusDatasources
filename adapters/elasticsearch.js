@@ -1,7 +1,5 @@
 'use strict';
 
-const Schema = require('mongoose').Schema;
-
 const elasticsearch = require('elasticsearch');
 const paramReplacer = require('lib/utils/paramReplacer');
 
@@ -36,26 +34,45 @@ function replaceParams(queryProperties, parameters) {
 module.exports = {
     displayName: "Elasticsearch",
     name: "elasticsearch",
-    dataSourcePropertiesSchema: new Schema({
-        url: {
-            type: String,
-            required: [true, "You must set the Elasticsearch instance URL to connect. E.g. 'localhost:9200'"]
+    dataSourcePropertiesSchema: {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "ElasticaSearch connection",
+        "type": "object",
+        "properties": {
+            "url": {
+                "type": "string",
+                "title": "URL"
+            },
+            "index": {
+                "type": "string",
+                "title": "Index"
+            }
         },
-        index: {
-            type: String,
-            required: [true, "You must set the 'index' to connect."]
-        }
-    }),
-    queryPropertiesSchema: new Schema({
-        type: {
-            type: String,
-            required: [true, "You must set the Elasticsearch type to query."]
+        "required": [
+            "url",
+            "index"
+        ]
+    },
+    queryPropertiesSchema: {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Elasticsearch Query ",
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "title": "Type"
+            },
+            "query": {
+                "type": "string",
+                "title": "Query",
+                "ui:widget": "textarea"
+            }
         },
-        query: {
-            type: String,
-            required: [true, "You must set the Elasticsearch query object."]
-        }
-    }),
+        "required": [
+            "type",
+            "query"
+        ]
+    },
     execute,
     configure,
     replaceParams,

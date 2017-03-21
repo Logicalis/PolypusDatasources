@@ -6,12 +6,7 @@ const _ = require('lodash');
 function get(req, res) {
   var list = [];
   _.forEach(adapterManager.getAdapters(), function(adapter){
-    var adapterJson = Object.assign({},adapter);
-    adapterJson.dataSourcePropertiesSchema = adapterJson.dataSourcePropertiesSchema.paths;
-    delete adapterJson.dataSourcePropertiesSchema._id;
-    adapterJson.queryPropertiesSchema = adapterJson.queryPropertiesSchema.paths;
-    delete adapterJson.queryPropertiesSchema._id;
-    list.push(adapterJson);
+    list.push(adapter);
   });
   res.send(200,list);
 }

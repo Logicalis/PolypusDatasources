@@ -41,42 +41,65 @@ function replaceParams(queryProperties, parameters) {
 module.exports = {
     displayName: "PostgreSQL",
     name: "postgresql",
-    dataSourcePropertiesSchema: new Schema({
-        user: {
-            type: String,
-            required: true
+    dataSourcePropertiesSchema:{
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "title": "PostgreSQL Connection",
+        "properties": {
+            "user": {
+                "type": "string",
+                "title":"User"
+            },
+            "password": {
+                "type": "string",
+                "title":"Password"
+            },
+            "database": {
+                "type": "string",
+                "title":"Database"
+            },
+            "host": {
+                "type": "string",
+                "title": "Host"
+            },
+            "port": {
+                "type": "integer",
+                "title": "Port",
+                "default": 5432
+            },
+            "maxClientsPool": {
+                "type": "integer",
+                "title":"Max Clients in Pool",
+                "default": 10
+            },
+            "idleTimeoutMillis": {
+                "type": "integer",
+                "title": "Idle Timeout Millis",
+                "default": 30000
+            }
         },
-        password: {
-            type: String,
-            required: true
+        "required": [
+            "user",
+            "password",
+            "database",
+            "host"
+        ]
+    },
+    queryPropertiesSchema: {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "title": "PostgreSQL Query",
+        "properties": {
+            "query": {
+                "type": "string",
+                "title":"SQL Query",
+                "ui:widget": "textarea"
+            }
         },
-        database: {
-            type: String,
-            required: true
-        },
-        host: {
-            type: String,
-            required: true
-        },
-        port: {
-            type: Number,
-            default: 5432
-        },
-        maxClientsPool: {
-            type: Number,
-            default: 10
-        },
-        idleTimeoutMillis: {
-            type: Number,
-            default: 30000
-        }        
-    }),
-    queryPropertiesSchema: new Schema({
-        query: {
-            type: String,
-            required: [true, "You must set the SQL query."]
-        }
-    }),
+        "required": [
+            "query"
+        ]
+    },
     execute,
     configure,
     replaceParams,

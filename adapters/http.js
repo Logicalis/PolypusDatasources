@@ -11,7 +11,7 @@ function configure(dataSource){
 
 function execute(dataSourceProperties, queryProperties){
     var url = dataSourceProperties.url+queryProperties.urlEnd;
-    var headers = dataSourceProperties.headers;
+    var headers = JSON.parse(dataSourceProperties.headers);
     return new Promise((resolve, reject) => {
         request.get({url,headers}, (err, response, body) => {
             if(err){
@@ -37,24 +37,39 @@ function replaceParams(queryProperties, parameters) {
 module.exports = {
     displayName: "HTTP Request",
     name: "httprequest",
-    dataSourcePropertiesSchema: new Schema({
-        url: {
-            type: String,
-            required: true
+    dataSourcePropertiesSchema: {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "title": "HTTP API",
+        "properties": {
+            "url": {
+                "type": "string",
+                "title": "URL"
+            },
+            "headers": {
+                "type": "string",
+                "title": "Headers",
+                "default":"{}",
+                "ui:widget": "textarea"
+            }
         },
-        headers:{
-            type: Object,
-            required: false,
-            default: {}
+        "required": [
+            "url"
+        ]
+    },
+    queryPropertiesSchema: {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "title": "HTTP API Endpoint",
+        "properties": {
+            "urlEnd": {
+                "type": "string",
+                "title": "URL Endpoint",
+                "description": "The rest of the URL after the DataSource url.",
+                "default":""
+            }
         }
-    }),
-    queryPropertiesSchema: new Schema({
-        urlEnd: {
-            type: String,
-            required: false,
-            default: ""
-        }
-    }),
+    },
     execute,
     configure,
     replaceParams,
