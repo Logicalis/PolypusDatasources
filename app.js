@@ -92,3 +92,9 @@ SwaggerRestify.create(configswagger, function(err, swaggerRestify) {
   });
 
 });
+
+// serve static admin web interface
+server.get(/\/?.*/, restify.serveStatic({
+      directory: __dirname+'/admin',
+      default: 'index.html'
+}));
