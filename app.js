@@ -8,6 +8,9 @@ var config = require('./config');
 
 const DEFAULT_PID_PATH = '/var/run/logicalis/datasourceapi/';
 
+const mkdirp = require('mkdirp');
+const fs = require('fs');
+
 function writePIDFile() {
     const dirPath = config.process.pid_file_path || DEFAULT_PID_PATH;
     const pidFilePath = path.join(dirPath, 'datasourceapi.pid');
