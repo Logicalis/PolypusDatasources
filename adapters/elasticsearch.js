@@ -36,7 +36,7 @@ module.exports = {
     name: "elasticsearch",
     dataSourcePropertiesSchema: {
         "$schema": "http://json-schema.org/draft-04/schema#",
-        "title": "ElasticaSearch connection",
+        "title": "ElasticSearch connection",
         "type": "object",
         "properties": {
             "url": {
