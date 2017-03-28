@@ -110,6 +110,9 @@ List of possible improvements and features in this service:
   - Other API interfaces and data transport, such as AMQP.
   - High availability with clustering.
   - Streams of data
+  - Support for Big Data (queries that can't return in real time, must be processed as a job)
+  - Adapters works as plugins (all adapters code inside the project will make the dependencies grow)
+    -Maybe adapters working as protocols will allow to implement they in different programing languages.
 
 Adapters to be implemented:
  - MongoDB
