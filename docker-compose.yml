@@ -2,10 +2,10 @@
 
 version: '2'
 services:
-    datasourceapi:
-        image: datasourceapi
+    polypus:
+        image: polypus
         ports:
             - 4000:4000
         volumes:
-            - /c/datasourceapi/logs/:/opt/logicalis/datasourceapi/logs/:rw
-            - /c/datasourceapi/datasourceapi.yml:/etc/logicalis/datasourceapi/datasourceapi.yml:rw
+            - /c/polypus/logs/:/opt/polypus/logs/:rw
+            - /c/polypus/polypus.yml:/etc/polypus/polypus.yml:rw

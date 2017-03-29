@@ -6,14 +6,14 @@ var path = require('path');
 const os = require('os');
 var config = require('./config');
 
-const DEFAULT_PID_PATH = '/var/run/logicalis/datasourceapi/';
+const DEFAULT_PID_PATH = '/var/run/polypus/';
 
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 
 function writePIDFile() {
     const dirPath = config.process.pid_file_path || DEFAULT_PID_PATH;
-    const pidFilePath = path.join(dirPath, 'datasourceapi.pid');
+    const pidFilePath = path.join(dirPath, 'polypus.pid');
     mkdirp.sync(dirPath);
     fs.writeFile(pidFilePath, process.pid);
 }
@@ -23,8 +23,8 @@ if (os.platform() === 'linux') {
     writePIDFile();
 }
 
-require('lib/utils/logger')('datasourceapi')
-    .debug(`Starting DataSourceAPI with the following settings: ${JSON.stringify(config)}`);
+require('lib/utils/logger')('polypus')
+    .debug(`Starting Polypus with the following settings: ${JSON.stringify(config)}`);
 
 var SwaggerRestify = require('swagger-restify-mw');
 var restify = require('restify');

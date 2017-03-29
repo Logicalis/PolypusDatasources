@@ -17,7 +17,7 @@ var whenNotElastic = function(answers){
 // };
 
 var questions = [
-    {name: "address", type: 'input', message: "Where is the DataSourceAPI server? Let empty for default: http://localhost:4000.",default: "http://localhost:4000"},
+    {name: "address", type: 'input', message: "Where is the Polypus server? Let empty for default: http://localhost:4000.",default: "http://localhost:4000"},
     {name: "adapter", type:'list', choices: adapters, message: "Select the Adapter for the DataSource:"},
     {name: "name", type: 'input', message: "Name of the DataSource:"},
     {name: "dataSourceProperties.url", type: 'input', message: "Elasticsearch URL:", when: whenElastic},

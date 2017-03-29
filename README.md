@@ -1,4 +1,4 @@
-# DataSourceAPI
+# Polypus Datasources
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -37,7 +37,7 @@ The connection to the data saource can be made at the initialization of this ser
 This component has a Rest API that controls the management of DataSources and Queries.
 
 ## Architecture
-![DataSourceAPI Diagram](./diagram.png)
+![Polypus Diagram](./diagram.png)
 
 ## API Docs
 The API is documented using [Swagger](http://swagger.io/). 

@@ -6,8 +6,8 @@ module.exports = function (grunt) {
 
         easy_rpm: {
             options: {
-                name: 'datasourceapi',
-                summary: 'DataSourceAPI',
+                name: 'polypus',
+                summary: 'Polypus',
                 description: 'Service to register different DataSources connections and queries with parameters.',
                 version: '<%= pkg.version %>',
                 release: grunt.config('build_number'),
@@ -21,27 +21,27 @@ module.exports = function (grunt) {
                 ],
                 defaultAttributes: {
                     mode: 644,
-                    user: 'datasourceapi',
-                    group: 'datasourceapi',
+                    // user: 'polypus',
+                    // group: 'polypus',
                     dirMode: 755
                 }
             },
             release: {
                 files: [
-                    {src: 'app.js', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'config.js', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'package.json', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'lib/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'scripts/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'README.md', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'api/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'pm2.json', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'adapters/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'config/default.yaml', dest: '/opt/logicalis/datasourceapi/'},
-                    {src: 'node_modules/**/*', dest: '/opt/logicalis/datasourceapi/'},
-                    {cwd: "systemd", src: "datasourceapi.service", dest: '/usr/lib/systemd/system/'},
+                    {src: 'app.js', dest: '/opt/polypus/'},
+                    {src: 'config.js', dest: '/opt/polypus/'},
+                    {src: 'package.json', dest: '/opt/polypus/'},
+                    {src: 'lib/**/*', dest: '/opt/polypus/'},
+                    {src: 'scripts/**/*', dest: '/opt/polypus/'},
+                    {src: 'README.md', dest: '/opt/polypus/'},
+                    {src: 'api/**/*', dest: '/opt/polypus/'},
+                    {src: 'pm2.json', dest: '/opt/polypus/'},
+                    {src: 'adapters/**/*', dest: '/opt/polypus/'},
+                    {src: 'config/default.yaml', dest: '/opt/polypus/'},
+                    {src: 'node_modules/**/*', dest: '/opt/polypus/'},
+                    {cwd: "systemd", src: "polypus.service", dest: '/usr/lib/systemd/system/'},
 
-                    {config: true, cwd: "config", src: 'datasourceapi.yml', dest: '/etc/logicalis/datasourceapi/'}
+                    {config: true, cwd: "config", src: 'polypus.yml', dest: '/etc/polypus/'}
                 ]
             }
         }

@@ -1,0 +1,12 @@
+[Unit]
+Description=Polypus
+
+[Service]
+User=root
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/polypus
+ExecStart=/usr/bin/node app.js
+PIDFile=/var/run/polypus/polypus.pid
+
+[Install]
+WantedBy=multi-user.target

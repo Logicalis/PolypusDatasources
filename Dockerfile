@@ -8,8 +8,8 @@ ENV MONGODB_URL ""
 ENV LOGGER_DIR ""
 ENV LOGGER_LEVEL "DEBUG"
 
-# RUN mkdir -p /opt/logicalis/datasourceapi/
-WORKDIR /opt/logicalis/datasourceapi/
+# RUN mkdir -p /opt/polypus/
+WORKDIR /opt/polypus/
 COPY *.js ./
 COPY adapters/ ./adapters
 COPY api/ ./api
@@ -17,7 +17,7 @@ COPY lib/ ./lib
 COPY package.json ./
 
 COPY config/ ./config
-COPY config/datasourceapi.yml /etc/logicalis/datasourceapi/datasourceapi.yml
+COPY config/polypus.yml /etc/polypus/polypus.yml
 
 
 RUN npm install

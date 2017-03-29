@@ -1,9 +1,9 @@
 {
   "apps": [
     {
-      "name": "datasourceapi",
+      "name": "polypus",
       "watch": false,
-      "script": "/opt/logicalis/datasourceapi/app.js",
+      "script": "/opt/polypus/app.js",
       "env": {
         "NODE_ENV": "production"
       },

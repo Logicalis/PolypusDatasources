@@ -1,0 +1,10 @@
+http.port: 4000
+
+logger.dir: /var/log/polypus/
+logger.level: INFO
+
+mongodb.url: mongodb://localhost/polypus
+
+# basePath: /polypus/api # use this if you are serving the api under a proxy server like nginx
+
+process.pid_file_path: '/var/run/polypus/'
