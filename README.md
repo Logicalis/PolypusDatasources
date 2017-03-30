@@ -10,6 +10,7 @@
 - [How to implement a new Adapter](#how-to-implement-a-new-adapter)
 - [DataSources](#datasources)
 - [Queries](#queries)
+- [Admin Client](#admin-client)
 - [Scripts](#scripts)
   - [Create DataSource](#create-datasource)
 - [Implemented Adapters](#implemented-adapters)
@@ -82,6 +83,11 @@ They have functions that are responsible for connecting, overriding query parame
 | dataSource | DataSource ID referenced by Query |
 | queryProperties | Object with Query attributes that are defined by the Adapter. |
 | additionalProperties | Object with additional properties that can be used by client applications to store extra information. |
+
+
+## Admin Client
+
+See: [Polypus Datasources Admin](https://github.com/PromonLogicalis/PolypusDatasources-Admin)
 
 ## Scripts
 
