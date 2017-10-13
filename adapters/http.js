@@ -11,7 +11,10 @@ function configure(dataSource){
 
 function execute(dataSourceProperties, queryProperties){
     var url = dataSourceProperties.url+queryProperties.urlEnd;
-    var headers = JSON.parse(dataSourceProperties.headers);
+    var dataSourceHeaders = dataSourceProperties.headers;
+    var queryHeaders = queryProperties.headers;
+    var headers = Object.assign({},dataSourceHeaders, queryHeaders);
+
     return new Promise((resolve, reject) => {
         request.get({url,headers}, (err, response, body) => {
             if(err){
@@ -67,6 +70,12 @@ module.exports = {
                 "title": "URL Endpoint",
                 "description": "The rest of the URL after the DataSource url.",
                 "default":""
+            },
+            "headers": {
+                "type": "string",
+                "title": "Headers",
+                "default":"{}",
+                "ui:widget": "textarea"
             }
         }
     },
