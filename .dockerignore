@@ -21,3 +21,8 @@ Makefile
 pm2.json
 *.md
 *.png
+
+# ignores unwanted files
+systemd
+Dockerfile
+docker-compose.yml

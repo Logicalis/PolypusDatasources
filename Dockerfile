@@ -10,13 +10,8 @@ ENV LOGGER_LEVEL "DEBUG"
 
 # RUN mkdir -p /opt/polypus/
 WORKDIR /opt/polypus/
-COPY *.js ./
-COPY adapters/ ./adapters
-COPY api/ ./api
-COPY lib/ ./lib
-COPY package.json ./
+COPY . .
 
-COPY config/ ./config
 COPY config/polypus.yml /etc/polypus/polypus.yml
 
 
