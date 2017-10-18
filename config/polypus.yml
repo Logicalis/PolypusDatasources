@@ -1,6 +1,6 @@
 http.port: 4000
 
-logger.dir: /tmp/log/polypus/
+logger.dir: /var/log/polypus/
 logger.level: INFO
 
 mongodb.url: mongodb://localhost/polypus
