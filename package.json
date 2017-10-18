@@ -1,6 +1,6 @@
 {
   "name": "datasource-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A queries and datasources repository to use as API",
   "private": true,
   "keywords": [],
