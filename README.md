@@ -1,3 +1,14 @@
+---
+
+# WARNING
+
+## This repo has been archived!
+
+NO further developement will be made in the foreseen future.
+
+---
+
+
 # Polypus Datasources
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
